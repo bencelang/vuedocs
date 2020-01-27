@@ -1,0 +1,35 @@
+{
+  "name": "@bencelang/vuedocs-core",
+  "version": "0.1.0",
+  "description": "Core package for vuedocs",
+  "keywords": [
+    "vue",
+    "vuedocs",
+    "vue docs",
+    "vue documentation"
+  ],
+  "author": "Bence Láng",
+  "homepage": "https://github.com/bencelang/vuedocs/tree/develop/packages/@bencelang/vue-docs-core#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs.git",
+    "directory": "packages/@bencelang/vue-cli-plugin-docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^13.5.0"
+  }
+}

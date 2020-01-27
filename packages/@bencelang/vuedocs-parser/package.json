@@ -1,0 +1,38 @@
+{
+  "name": "@bencelang/vuedocs-parser",
+  "version": "0.1.0",
+  "description": "Vue SFC parser for @bencelang/vuedocs",
+  "keywords": [
+    "vuedocs",
+    "vue docs",
+    "vuedocs parser",
+    "vue docs parser"
+  ],
+  "author": "Bence Láng",
+  "homepage": "https://github.com/bencelang/vuedocs/tree/develop/packages/@bencelang/vuedocs-parser#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs.git",
+    "directory": "packages/@bencelang/vue-docs-parser"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/bencelang/vuedocs/issues"
+  },
+  "dependencies": {
+    "@bencelang/vuedocs-core": "0.x"
+  }
+}

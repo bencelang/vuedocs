@@ -1,0 +1,43 @@
+{
+  "name": "@bencelang/vuedocs-loader",
+  "version": "0.1.0",
+  "description": "Webpack 4+ loader for @bencelang/vuedocs",
+  "keywords": [
+    "vuedocs",
+    "vue docs",
+    "vuedocs loader",
+    "vue docs loader"
+  ],
+  "author": "Bence Láng",
+  "homepage": "https://github.com/bencelang/vuedocs/tree/develop/packages/@bencelang/vue-docs-loader#readme",
+  "license": "MIT",
+  "main": "lib/vue-docs-loader.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs.git",
+    "directory": "packages/@bencelang/vue-docs-loader"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/bencelang/vue-docs-loader/issues"
+  },
+  "dependencies": {
+    "@bencelang/vuedocs-core": "0.x",
+    "@bencelang/vuedocs-parser": "0.x"
+  },
+  "peerDependencies": {
+    "vue-loader": "*",
+    "webpack": ">= 4.0.0"
+  }
+}

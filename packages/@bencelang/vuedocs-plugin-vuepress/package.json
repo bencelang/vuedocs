@@ -1,0 +1,25 @@
+{
+  "name": "@bencelang/vuedocs-plugin-vuepress",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "Bence Láng <bence.lang@avolantis.net>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/vuedocs-plugin-vuepress.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@bencelang/vuedocs-core": "0.x",
+    "vuepress": "^1.2.0"
+  }
+}

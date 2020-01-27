@@ -1,0 +1,37 @@
+{
+  "name": "@bencelang/vuedocs",
+  "version": "0.1.0",
+  "description": "Generate documentation for your vue project",
+  "keywords": [
+    "vue",
+    "vuedocs",
+    "vue docs",
+    "vue documentation"
+  ],
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs"
+  },
+  "homepage": "https://github.com/bencelang/vuedocs#readme",
+  "bugs": {
+    "url": "https://github.com/bencelang/vuedocs/issues"
+  },
+  "author": "Bence Láng",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@bencelang/vuedocs-cli": "0.x",
+    "@bencelang/vuedocs-core": "0.x",
+    "@bencelang/vuedocs-parser": "0.x",
+    "rimraf": "^3.0.0"
+  }
+}

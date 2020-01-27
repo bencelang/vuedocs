@@ -1,0 +1,50 @@
+{
+  "name": "@bencelang/vue-cli-plugin-docs",
+  "version": "0.1.0",
+  "description": "Automatically generate documentation for your project",
+  "keywords": [
+    "vue",
+    "cli",
+    "vuedocs",
+    "vue docs",
+    "vue documentation",
+    "docs",
+    "documentation",
+    "docs plugin",
+    "documentation plugin",
+    "cli plugin"
+  ],
+  "author": "Bence Láng",
+  "homepage": "https://github.com/bencelang/vuedocs/tree/develop/packages/@bencelang/vue-cli-plugin-docs#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "generator.js",
+    "prompts.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs.git",
+    "directory": "packages/@bencelang/vue-cli-plugin-docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/bencelang/vue-docs/issues"
+  },
+  "dependencies": {
+    "@bencelang/vuedocs-loader": "0.x",
+    "@bencelang/vuedocs": "0.x"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^3.0.0 || ^4.0.0-0"
+  }
+}

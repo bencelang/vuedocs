@@ -1,0 +1,49 @@
+{
+  "name": "@bencelang/vuedocs-cli",
+  "version": "0.1.0",
+  "description": "A simple CLI for @bencelang/vuedocs",
+  "keywords": [
+    "vue",
+    "cli",
+    "vuedocs"
+  ],
+  "author": "Bence Láng",
+  "homepage": "https://github.com/bencelang/vuedocs/tree/develop/packages/@bencelang/vuedocs-cli#readme",
+  "license": "MIT",
+  "bin": {
+    "vuedocs": "bin/vuedocs.js"
+  },
+  "directories":  {
+    "bin": "bin",
+    "lib": "lib"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencelang/vuedocs.git",
+    "directory": "packages/@bencelang/vuedocs-cli"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/bencelang/vuedocs/issues"
+  },
+  "dependencies": {
+    "commander": "^4.1.0",
+    "chalk": "^3.0.0",
+    "glob": "^7.1.6",
+    "yargs": "^15.1.0",
+    "@bencelang/vuedocs-core": "0.x",
+    "@bencelang/vuedocs-parser": "0.x"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}

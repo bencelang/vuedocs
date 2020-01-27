@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="keyword" value="@copyright" />
+    <option name="notice" value="@copyright&#10;Copyright (c) &amp;#36;today.year. - Bence Láng.&#10;Licensed under the MIT license.&#10;&#10;@module &amp;#36;file.fileName&#10;@author Bence Láng&#10;@license MIT&#10;@repository https://github.com/bencelang/vuedocs&#10;@issues https://github.com/bencelang/vuedocs/issues" />
+    <option name="myName" value="Default" />
+  </copyright>
+</component>

@@ -1,0 +1,21 @@
+{
+  "name": "@bencelang/vuedocs-webpack-plugin",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "Bence Láng",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/vuedocs-webpack-plugin.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
