@@ -33,6 +33,7 @@
     "url": "https://github.com/bencelang/vuedocs/issues"
   },
   "dependencies": {
-    "@bencelang/vuedocs-core": "0.x"
+    "@bencelang/vuedocs-core": "0.x",
+    "multilang-extract-comments": "^0.3.2"
   }
 }

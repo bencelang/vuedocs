@@ -13,16 +13,21 @@
 import {Context} from "./context";
 import {Handler} from "./handler";
 import {Trigger} from "./trigger";
-import {Vuedocs} from "../vuedocs";
 
 export class Hook {
-  public readonly trigger: Trigger;
-  public readonly vuedocs: Vuedocs;
+  public readonly name: string;
   private handlers: Handler[] = [];
+  private triggers: Trigger[] = [];
 
-  constructor(vuedocs: Vuedocs, trigger: Trigger, handlers?: Handler | Handler[]) {
-    this.trigger = trigger;
-    this.vuedocs = vuedocs;
+  constructor(name: string, triggers?: Trigger | Trigger[], handlers?: Handler | Handler[]) {
+    this.name = name;
+    if (triggers) {
+      if (Array.isArray(triggers)) {
+        triggers.forEach(trigger => this.triggers.push(trigger));
+      } else {
+        this.triggers.push(triggers);
+      }
+    }
     if (handlers) {
       if (Array.isArray(handlers)) {
         handlers.forEach(handler => this.registerHandler(handler));
@@ -36,18 +41,27 @@ export class Hook {
     return this.handlers;
   }
 
+  public get Triggers() {
+    return this.triggers;
+  }
+
+  public clearHandlers(): void {
+    this.handlers = [];
+  }
+
   public fire(context: Context): void {
     this.handlers.forEach(callback => callback(context));
   }
-  public clear(): void {
-    this.handlers = [];
-  }
+
   public registerHandler(cb: Handler, prepend: boolean = false): void {
-    // TODO: Callback validation
     if (prepend) {
       this.handlers.unshift(cb);
     } else {
       this.handlers.push(cb);
     }
+  }
+
+  public registerTriggers(...triggers: Trigger[]) {
+    triggers.forEach(trigger => this.triggers.push(trigger));
   }
 }

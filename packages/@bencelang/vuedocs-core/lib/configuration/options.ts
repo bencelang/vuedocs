@@ -22,6 +22,6 @@ export class Options {
                            "./NOTICES.md"];
   public include?: string[] = ["./vue.config.js"];
   public exclude?: string[] = ["node_modules", "tests", "__tests__"];
-  public hooks?: HandlerOptions[];
-  public pluginOptions?: any;
+  public hooks?: HandlerOptions[] = [];
+  public pluginOptions?: any = {};
 }

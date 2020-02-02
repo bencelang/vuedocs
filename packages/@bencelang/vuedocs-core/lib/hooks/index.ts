@@ -13,6 +13,7 @@
 export * from "./context";
 export * from "./handler";
 export * from "./hook";
+export * from "./manager";
 export * from "./options";
 export * from "./result";
 export * from "./trigger";

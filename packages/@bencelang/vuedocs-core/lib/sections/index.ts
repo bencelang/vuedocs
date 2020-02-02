@@ -11,3 +11,4 @@
  */
 
 export * from "./section";
+export * from "./map";

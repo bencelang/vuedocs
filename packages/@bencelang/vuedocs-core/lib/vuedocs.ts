@@ -10,74 +10,53 @@
  * @issues https://github.com/bencelang/vuedocs/issues
  */
 
-import {Hook, Trigger} from "./hooks";
-import {Config} from "./configuration/config";
-import {Tag} from "./tags";
+import { Config, Options } from "./configuration";
+import { Document } from "./document";
+import { Manager } from "./hooks";
+import { MarkdownRenderer, Renderer } from "./renderers";
+import { Source } from "./source";
+import { Tag } from "./tags";
 
-
-
-export class Markdown {
-
-}
-
-export class Vuedocs {
-  private config: Config;
-  private hooks: Hook[] = [];
+export class VueDocs {
+  private readonly config: Config;
+  private readonly manager: Manager;
   private tags: Tag[] = [];
+  private sources: Source[] = [];
 
-  constructor(configPath?: string) {
-    this.fillHooks();
-    this.resolveConfig(configPath);
-    this.loadTags();
+  constructor(options?: Options) {
+    this.manager = new Manager(this);
+    this.config = new Config(this, options);
   }
 
-  public get Config() {
+  public get Config(): Config {
     return this.config;
   }
 
-  public get Hooks() {
-    return this.hooks;
+  public get Manager(): Manager {
+    return this.manager;
   }
 
-  public get Tags() {
+  public get Tags(): Tag[] {
     return this.tags;
   }
 
-  private fillHooks() {
-    // TODO: Fill hooks
+  public addSource(source: Source): void {
+    this.sources.push(source);
   }
 
-  private resolveConfig(filepath?: string): Config {
-    if (!filepath) {
-      filepath = Config.locateConfigFile(process.cwd());
-      if (filepath === null) {
-        this.config = Config.DefaultConfig;
-        return;
-      }
-    }
-
-    this.config = Config.resolveConfigFile(filepath);
+  public generate(renderer: Renderer = new MarkdownRenderer()): Document[] {
+    const docs = [];
+    this.sources.forEach(source => {
+      docs.push(new Document(renderer, source.buildOutput(this.tags)));
+    });
+    return docs;
   }
 
-  private loadTags() {
-    // TODO: Load default tags
-  }
-
-  public getHook(trigger: Trigger): Hook {
-    const h = this.hooks.filter(hook => hook.trigger === trigger);
-    return h[0];
-  }
-
-  public registerHooks(input: Hook | Hook[]): void {
-    if (Array.isArray(input)) {
-      input.forEach(hook => {
-        if (this.hooks.filter(h=>h.trigger !== hook.trigger)) {
-          this.hooks.push(hook);
-        }
-      });
-    } else {
-      this.hooks.push(input);
-    }
+  public translate(
+    source: Source,
+    renderer: Renderer = new MarkdownRenderer()
+  ): string | Uint8Array {
+    return new Document(renderer, source.buildOutput(this.tags)).Content;
   }
 
   public registerTags(input: Tag | Tag[]): void {

@@ -10,10 +10,12 @@
  * @issues https://github.com/bencelang/vuedocs/issues
  */
 
-export * from "./configuration/config"
+export * from "./configuration"
+export * from "./document"
 export * from "./hooks"
-export * from "./configuration/options"
-export * from "./sections/section"
+export * from "./output"
+export * from "./renderers"
+export * from "./sections"
 export * from "./source"
 export * from "./tags"
 export * from "./vuedocs"

@@ -10,28 +10,19 @@
  * @issues https://github.com/bencelang/vuedocs/issues
  */
 
+import { Section } from "./sections";
+import { Output } from "./output";
+import { Tag } from "./tags";
+
 export class Source {
-  private buffer: string;
+  private sections: Section[];
 
-  constructor(source: string) {
-    this.buffer = source;
-    this.resolve();
+  constructor(...sections: string[]) {
+    sections.forEach(section => this.sections.push(new Section(section)));
   }
 
-  protected get source() {
-    return this.buffer;
-  }
-
-  protected set source(value: string) {
-    this.buffer = value;
-    this.resolve();
-  }
-
-  protected resolve() {
-    // TODO: Resolve source
-  }
-
-  public toString(): string {
-    return this.source;
+  public buildOutput(tags: Tag[]): Output {
+    this.sections.forEach(section => tags.forEach(tag => tag.apply(section)));
+    return new Output(this.sections);
   }
 }

@@ -10,6 +10,19 @@
  * @issues https://github.com/bencelang/vuedocs/issues
  */
 
-export class Context {
+import { Trigger } from "./trigger";
+import { VueDocs } from "../vuedocs";
 
+export class Context {
+  constructor(invoker: any, params: any, trigger: Trigger, vuedocs: VueDocs) {
+    this.invoker = invoker;
+    this.params = params;
+    this.trigger = trigger;
+    this.vuedocs = vuedocs;
+  }
+
+  public readonly invoker: any;
+  public readonly params: any;
+  public readonly trigger: Trigger;
+  public readonly vuedocs: VueDocs;
 }

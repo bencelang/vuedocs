@@ -10,8 +10,21 @@
  * @issues https://github.com/bencelang/vuedocs/issues
  */
 
-import {Tag} from "../tags";
+import { SectionMap } from "./map";
 
 export class Section {
-  tag: Tag
+  public readonly source: string;
+  private map: SectionMap;
+
+  constructor(source: string) {
+    this.source = source;
+  }
+
+  public get Map(): SectionMap {
+    return this.map ? this.map : undefined;
+  }
+
+  public addToMap(identifier: string, content: string) {
+    this.map.set(identifier, content);
+  }
 }

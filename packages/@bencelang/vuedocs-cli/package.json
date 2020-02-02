@@ -36,14 +36,18 @@
     "url": "https://github.com/bencelang/vuedocs/issues"
   },
   "dependencies": {
-    "commander": "^4.1.0",
-    "chalk": "^3.0.0",
-    "glob": "^7.1.6",
-    "yargs": "^15.1.0",
     "@bencelang/vuedocs-core": "0.x",
-    "@bencelang/vuedocs-parser": "0.x"
+    "@bencelang/vuedocs-parser": "0.x",
+    "chalk": "^3.0.0",
+    "commander": "^4.1.0",
+    "didyoumean": "^1.2.1",
+    "figlet": "^1.2.4",
+    "glob": "^7.1.6",
+    "inquirer": "^7.0.4"
   },
   "devDependencies": {
+    "@types/didyoumean": "^1.2.0",
+    "@types/node": "^13.5.1",
     "typescript": "^3.7.5"
   }
 }

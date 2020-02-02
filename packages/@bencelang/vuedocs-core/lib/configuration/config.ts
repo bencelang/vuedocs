@@ -12,35 +12,171 @@
 
 import fs from "fs";
 import path from "path";
-import {Options} from "./options";
+import { Options } from "./options";
+import { VueDocs } from "../vuedocs";
+
+const CONFIG_OPTIONS = [
+  "vuedocs.config.js",
+  ".vuedocsrc.js",
+  ".vuedocsrc",
+  "vuedocs.json"
+];
+
+class InvalidConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
 
 export class Config {
-  public readonly dest: string;
-  public readonly source: string;
-  public readonly apiDir: string;
+  private readonly owner: VueDocs;
+  public dest: string;
+  public source: string;
+  public apiDir: string;
   public extensions: string[];
   public copy: string[];
   public include: string[];
   public exclude: string[];
+  public pluginOptions: any;
 
-  constructor(dest: string, source: string, apiDir: string, extensions: string[], copy: string[], include: string[],
-              exclude: string[]) {
-    this.dest = dest;
-    this.source = source;
-    this.apiDir = apiDir;
-    this.extensions = extensions;
-    this.copy = copy;
-    this.include = include;
-    this.exclude = exclude;
+  constructor(owner: VueDocs, options?: Options) {
+    this.owner = owner;
+    if (options) {
+      this.resolveOptions(options);
+    } else {
+      this.detectConfig();
+    }
+  }
+
+  private detectConfig() {
+    const file = Config.locateConfigFile(process.cwd());
+    if (file) {
+      this.resolveOptions(Config.resolveConfigFile(file));
+    }
+  }
+
+  private resolveOptions(options: Options) {
+    this.dest = options.dest;
+    this.source = options.source;
+    this.apiDir = options.apiDir;
+    this.extensions = options.extensions;
+    this.copy = options.copy;
+    this.include = options.include;
+    this.exclude = options.exclude;
+    this.pluginOptions = options.pluginOptions;
+
+    if (options.hooks) {
+      options.hooks.forEach(hook => this.owner.Manager.resolve(hook));
+    }
+  }
+
+  private update(cfg: {
+    dest?: string;
+    source?: string;
+    apiDir?: string;
+    extensions?: string[];
+    copy?: string[];
+    include?: string[];
+    exclude?: string[];
+    pluginOptions?: any;
+  }) {
+
+    // Basic options
+    if (cfg.dest) {
+      this.dest = cfg.dest;
+    }
+    if (cfg.source) {
+      this.source = cfg.source;
+    }
+    if (cfg.apiDir) {
+      this.apiDir = cfg.apiDir;
+    }
+
+    // Extensions
+    if (cfg.extensions !== undefined) {
+      // Allow the user to clear existing settings
+      if (cfg.extensions === null) {
+        this.extensions = [];
+      } else if (cfg.extensions.length) {
+        // Allow clearing this way, to be able to instantly specify new elements
+        if (cfg.extensions[0] === null) {
+          this.extensions = [];
+        }
+
+        cfg.extensions.forEach(ext => {
+          if (this.extensions.indexOf(ext) < 0) {
+            this.extensions.push(ext);
+          }
+        });
+      }
+
+      // Copy
+      if (cfg.copy !== undefined) {
+        if (cfg.copy === null) {
+          this.copy = [];
+        } else if (cfg.copy.length) {
+          // Allow clearing this way, to be able to instantly specify new elements
+          if (cfg.copy[0] === null) {
+            this.copy = [];
+          }
+
+          cfg.copy.forEach(glob => {
+            if (this.copy.indexOf(glob) < 0) {
+              this.copy.push(glob);
+            }
+          });
+        }
+      }
+
+      // Include
+      if (cfg.include !== undefined) {
+        if (cfg.include === null) {
+          this.include = [];
+        } else if (cfg.include.length) {
+          // Allow clearing this way, to be able to instantly specify new elements
+          if (cfg.include[0] === null) {
+            this.include = [];
+          }
+
+          cfg.include.forEach(glob => {
+            if (this.include.indexOf(glob) < 0) {
+              this.include.push(glob);
+            }
+          });
+        }
+      }
+
+      // Exclude
+      if (cfg.exclude !== undefined) {
+        if (cfg.exclude === null) {
+          this.exclude = [];
+        } else if (cfg.exclude.length) {
+          // Allow clearing this way, to be able to instantly specify new elements
+          if (cfg.exclude[0] === null) {
+            this.exclude = [];
+          }
+
+          cfg.exclude.forEach(glob => {
+            if (this.exclude.indexOf(glob) < 0) {
+              this.exclude.push(glob);
+            }
+          });
+        }
+      }
+
+      // PluginOptions
+      if (cfg.pluginOptions !== undefined) {
+        this.pluginOptions = Object.assign(this.pluginOptions, cfg.pluginOptions);
+      }
+    }
   }
 
   public static locateConfigFile(cwd: string): string | null {
     let configFile: string = null;
-    const ls = fs.readdirSync(cwd, {withFileTypes: true});
-    const options = ["vuedocs.json", "vuedocs.config.js", ".vuedocsrc.js"];
+    const ls = fs.readdirSync(cwd, { withFileTypes: true });
 
     ls.forEach(file => {
-      if (file.isFile() && options.indexOf(file.name) > -1) {
+      if (file.isFile() && CONFIG_OPTIONS.indexOf(file.name) > -1) {
         configFile = path.resolve(cwd, file.name);
       }
     });
@@ -56,30 +192,15 @@ export class Config {
     return this.locateConfigFile(path.resolve(cwd, "../"));
   }
 
-  public static resolveConfigFile(filepath: string): Config {
+  public static resolveConfigFile(filepath: string): Options {
     const ext = filepath.split(".").pop();
     switch (ext) {
       case "js":
       case "json":
-        const jsval = require(filepath);
-        if (jsval.isPrototypeOf(Config)) {
-          return jsval as Config;
-        }
-        return Config.fromOptions(jsval as Options);
+      case "vuedocsrc":
+        return require(filepath) as Options;
+      default:
+        throw new InvalidConfigError(`Unknown file format: "${ext}"`);
     }
   }
-
-  public static fromOptions(options: Options): Config {
-    if (!options.dest) {
-      options.dest = path.resolve(process.cwd(), "docs");
-    }
-
-    if (!options.source) {
-      options.source = path.resolve(process.cwd(), "src")
-    }
-
-    return new Config(options.dest, options.source, options.apiDir, options.extensions, options.copy, options.include, options.exclude);
-  }
-
-  public static readonly DefaultConfig: Config = Config.fromOptions(new Options());
 }
